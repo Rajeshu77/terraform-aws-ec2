@@ -3,10 +3,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-variable "cidr_value" {
-  default = "10.0.0.0/16"
-}
-
 resource "aws_vpc" "my-vpc" {
   cidr_block = var.cidr_value
 }
@@ -66,9 +62,16 @@ resource "aws_security_group" "sg1-my" {
 }
 
 resource "aws_instance" "ec2-my" {
-  ami = "ami-0ecb62995f68bb549"
-  instance_type = "t2.micro"
+  ami = var.ami_value
+  instance_type = var.instance_type_value
   subnet_id = aws_subnet.sb1.id
   vpc_security_group_ids = [aws_security_group.sg1-my.id]
+
+  tags = {
+    name = "my-terraform-ec2"
+  }
 }
+
+
+
 
