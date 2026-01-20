@@ -1,4 +1,4 @@
-# ec2 code
+
 provider "aws" {
   region = "us-east-1"
 }
